@@ -35,6 +35,7 @@ pub fn handle_command(line: String, state: &mut Vec<Info>) -> Result<Control<()>
         Commands::Add => {
             let info = call_control_flow!(Info::info_read()?);
             state.push(info);
+            println!("Done!");
             Ok(Control::Next(()))
         }
         Commands::Get => {
@@ -47,16 +48,22 @@ pub fn handle_command(line: String, state: &mut Vec<Info>) -> Result<Control<()>
                 .map(|info| (info.service.as_str(), info))
                 .collect();
 
-            results.iter().for_each(|(sv, score)| {
-                if let Some(info) = info_hash.get(sv) {
-                    println!("Info: {:?}, Relation Score: {}", info, score)
-                }
-            });
+            results
+                .iter()
+                .take(10)
+                .for_each(|(sv, score)| match info_hash.get(sv) {
+                    Some(info) if *score >= 0.5 => {
+                        println!("Info: {:?}, Relation Score: {}", info, score);
+                    }
+                    _ => {}
+                });
+            println!("Done!");
             Ok(Control::Next(()))
         }
 
         Commands::List => {
             state.iter().for_each(|info| println!("Info: {:?}", info));
+            println!("Done!");
             Ok(Control::Next(()))
         }
 
@@ -64,6 +71,7 @@ pub fn handle_command(line: String, state: &mut Vec<Info>) -> Result<Control<()>
             let sv =
                 call_control_flow!(read_input("Please input your service for exact delete: ")?);
             state.retain(|info| info.service != sv);
+            println!("Done!");
             Ok(Control::Next(()))
         }
 

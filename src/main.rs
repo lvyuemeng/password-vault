@@ -29,7 +29,6 @@ fn main() -> Result<()> {
     let mut state = load_from_file(FILE_PATH)?;
 
     loop {
-        
         let line = read_input("")?;
         match line {
             Control::Continue => continue,
@@ -61,19 +60,32 @@ struct Cli {
 
 #[derive(Debug, Subcommand)]
 enum Commands {
-    #[clap(name = "add", alias = "a", alias = "0")]
-    #[command(about = "Add Password",long_about = "Add Password: Service, Username, Password")]
+    #[command(
+        about = "Add Password",
+        long_about = "Add Password: Service, Username, Password",
+        visible_aliases = &["a","0"],
+    )]
     Add,
-    #[clap(name = "get", alias = "g", alias = "1")]
-    #[command(about = "Get Password",long_about = "Get Password: Fuzz Searching with Service Input")]
+    #[command(
+        about = "Get Password",
+        long_about = "Get Password: Fuzz Searching with Service Input",
+        visible_aliases = &["g","1"],
+    )]
     Get,
-    #[clap(name = "List", alias = "ls", alias = "2")]
-    #[command(about = "List Passwords",long_about = "List All Passwords")]
+    #[command(
+        about = "List Passwords", 
+        long_about = "List All Passwords",
+        visible_aliases = &["l","2"])]
     List,
-    #[clap(name = "Delete", alias = "d", alias = "3")]
-    #[command(about = "Delete Password",long_about = "Delete Password: Exact Delete with Service Input")]
+    #[command(
+        about = "Delete Password",
+        long_about = "Delete Password: Exact Delete with Service Input",
+        visible_aliases = &["d","3"]
+    )]
     Delete,
-    #[clap(name = "Quit", alias = "q", alias = "4")]
-    #[command(about = "Quit",long_about = "Quit Prog")]
+    #[command(
+        about = "Quit",
+        long_about = "Quit Prog",
+        visible_aliases = &["q","4"])]
     Quit,
 }

@@ -39,25 +39,36 @@ pub fn handle_command(line: String, state: &mut Vec<Info>) -> Result<Control<()>
             Ok(Control::Next(()))
         }
         Commands::Get => {
-            let sv = call_control_flow!(read_input("Please input your service for searching: ")?);
+            let sv = call_control_flow!(read_input("Please input your service for searching: ")?)
+                .to_lowercase();
 
-            let services: Vec<&str> = state.iter().map(|info| info.service.as_str()).collect();
-            let results = fuzzy_search(&sv, &services);
-            let info_hash: HashMap<_, _> = state
+            let info_hash: HashMap<String, &Info> = state
                 .iter()
-                .map(|info| (info.service.as_str(), info))
+                .map(|info| (info.service.to_lowercase(), info))
                 .collect();
 
-            results
-                .iter()
-                .take(10)
-                .for_each(|(sv, score)| match info_hash.get(sv) {
-                    Some(info) if *score >= 0.5 => {
+            let services: Vec<&str> = info_hash.keys().map(String::as_str).collect();
+
+            let mut results = fuzzy_search(&sv, &services);
+            results.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
+
+            let mut found = false;
+
+            results.iter().take(10).for_each(|(sv, score)| {
+                if let Some(info) = info_hash.get(*sv) {
+                    if *score >= 0.5 {
                         println!("Info: {:?}, Relation Score: {}", info, score);
+                        found = true;
                     }
-                    _ => {}
-                });
-            println!("Done!");
+                }
+            });
+
+            if !found {
+                println!("Not Found!");
+            } else {
+                println!("Done!");
+            }
+
             Ok(Control::Next(()))
         }
 

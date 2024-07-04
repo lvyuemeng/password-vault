@@ -1,1 +1,42 @@
-[{"service":"Baid","username":"Bob","password":"88"},{"service":"Douban","username":"Anna","password":"8889"}]
+[
+	{
+		"service": "Baid",
+		"username": "Bob",
+		"password": "88"
+	},
+	{
+		"service": "Douban",
+		"username": "Anna",
+		"password": "8889"
+	},
+	{
+		"service": "DouNa",
+		"username": "Lv",
+		"password": "1234"
+	},
+	{
+		"service": "Weibo",
+		"username": "Charlie",
+		"password": "5678"
+	},
+	{
+		"service": "QQ",
+		"username": "Daisy",
+		"password": "abcd"
+	},
+	{
+		"service": "WeChat",
+		"username": "Eve",
+		"password": "efgh"
+	},
+	{
+		"service": "Alipay",
+		"username": "Frank",
+		"password": "ijkl"
+	},
+	{
+		"service": "Taobao",
+		"username": "Grace",
+		"password": "mnop"
+	}
+]

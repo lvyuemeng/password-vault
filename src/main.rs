@@ -62,13 +62,18 @@ struct Cli {
 #[derive(Debug, Subcommand)]
 enum Commands {
     #[clap(name = "add", alias = "a", alias = "0")]
+    #[command(about = "Add Password",long_about = "Add Password: Service, Username, Password")]
     Add,
     #[clap(name = "get", alias = "g", alias = "1")]
+    #[command(about = "Get Password",long_about = "Get Password: Fuzz Searching with Service Input")]
     Get,
     #[clap(name = "List", alias = "ls", alias = "2")]
+    #[command(about = "List Passwords",long_about = "List All Passwords")]
     List,
     #[clap(name = "Delete", alias = "d", alias = "3")]
+    #[command(about = "Delete Password",long_about = "Delete Password: Exact Delete with Service Input")]
     Delete,
     #[clap(name = "Quit", alias = "q", alias = "4")]
+    #[command(about = "Quit",long_about = "Quit Prog")]
     Quit,
 }

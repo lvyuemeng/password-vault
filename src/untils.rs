@@ -19,7 +19,9 @@ pub fn read_input(prompt: &str) -> Result<Control<String>> {
 
     std::io::stdin().read_line(&mut buffer)?;
     let buffer = buffer.trim().to_string();
-    if buffer.eq_ignore_ascii_case("continue") || buffer.eq_ignore_ascii_case("ct") || buffer.is_empty()
+    if buffer.eq_ignore_ascii_case("continue")
+        || buffer.eq_ignore_ascii_case("ct")
+        || buffer.is_empty()
     {
         Ok(Control::Continue)
     } else {

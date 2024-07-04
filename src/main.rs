@@ -23,10 +23,13 @@ const FILE_PATH: &str = "vaults.json";
 
 fn main() -> Result<()> {
     println!("{}", ART);
+    println!("Password Vault");
+    println!("Type 'help' to access more info");
 
     let mut state = load_from_file(FILE_PATH)?;
 
     loop {
+        
         let line = read_input("")?;
         match line {
             Control::Continue => continue,
